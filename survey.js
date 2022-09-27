@@ -5,6 +5,29 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+const askQuestions = function(questions) {
+  let questionIndex = 0;
+
+  const askQuestion = function() {
+    rl.question(questions[questionIndex] + ' ', (answer) => {
+      answers.push(answer);
+      questionIndex++;
+      if (questionIndex === questions.length) {
+        rl.close();
+        printProfile();
+        return;
+      }
+      askQuestion();
+    });
+  };
+
+  askQuestion();
+};
+
+const printProfile = function() {
+  console.log(`${answers[0]} loves listening to ${answers[2]} while ${answers[1]}, devouring ${answers[4]} for ${answers[3]}, prefers ${answers[5]} over any other sport, and is amazing at ${answers[6]}.`);
+};
+
 const questions = [
   "What's your name? Nicknames are also acceptable :)",
   "What's an activity you like doing?",
@@ -15,23 +38,5 @@ const questions = [
   "What is your superpower? In a few words, tell us what you are amazing at!"
 ];
 let answers = [];
-
-const askQuestions = function(questions) {
-  let questionIndex = 0;
-
-  const askQuestion = function() {
-    rl.question(questions[questionIndex] + ' ', (answer) => {
-      answers.push(answer);
-      questionIndex++;
-      if (questionIndex === questions.length) {
-        rl.close();
-        return;
-      }
-      askQuestion();
-    });
-  };
-
-  askQuestion();
-};
 
 askQuestions(questions);
