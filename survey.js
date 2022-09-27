@@ -7,6 +7,7 @@ const rl = readline.createInterface({
 
 const askQuestions = function(questions) {
   let questionIndex = 0;
+  let answers = [];
 
   const askQuestion = function() {
     rl.question(questions[questionIndex] + ' ', (answer) => {
@@ -14,7 +15,7 @@ const askQuestions = function(questions) {
       questionIndex++;
       if (questionIndex === questions.length) {
         rl.close();
-        printProfile();
+        printProfile(answers);
         return;
       }
       askQuestion();
@@ -24,7 +25,7 @@ const askQuestions = function(questions) {
   askQuestion();
 };
 
-const printProfile = function() {
+const printProfile = function(answers) {
   console.log(`${answers[0]} loves listening to ${answers[2]} while ${answers[1]}, devouring ${answers[4]} for ${answers[3]}, prefers ${answers[5]} over any other sport, and is amazing at ${answers[6]}.`);
 };
 
@@ -37,6 +38,5 @@ const questions = [
   "Which sport is your absolute favourite?",
   "What is your superpower? In a few words, tell us what you are amazing at!"
 ];
-let answers = [];
 
 askQuestions(questions);
